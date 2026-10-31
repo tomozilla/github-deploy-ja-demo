@@ -4,7 +4,7 @@
 
 **Personal learning record, unofficial (個人の学習記録・非公式).** I am a fellow builder who tried this myself. This is not official guidance and not an authority.
 
-A tiny repo for trying the Supabase dashboard's **GitHub integration** ("Route A"): connect a repo to a project from the dashboard, merge a SQL file, and see it applied. No CLI is typed by the reader and no token or database password is copied anywhere. It also contains a small static page, the **deploy board**, that compares the repo's migration files with what the database says it applied.
+A tiny repo for trying the Supabase dashboard's **GitHub integration** ("Route A"): connect a repo to a project from the dashboard, merge a SQL file, and see it applied. The connecting itself needs no CLI and no token or database password copied anywhere (I ran `supabase init` once locally to generate `config.toml`; I did not try writing it by hand). It also contains a small static page, the **deploy board**, that compares the repo's migration files with what the database says it applied.
 
 Last run and checked: **2026-10-31**.
 
