@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>デプロイボード</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; background: #f6f7f9; color: #1f2937; }
+  main { max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color: #6b7280; font-size: 14px; margin-bottom: 16px; }
+  .banner { padding: 12px 14px; border-radius: 8px; margin: 12px 0; font-size: 15px; }
+  .ok { background: #e7f6ec; border: 1px solid #a7dbb7; }
+  .bad { background: #fde8e8; border: 1px solid #f3b0b0; }
+  .warn { background: #fff4d6; border: 1px solid #ecd28a; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; }
+  th, td { text-align: left; padding: 9px 12px; font-size: 14px; border-bottom: 1px solid #eef0f3; }
+  th { font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: .04em; }
+  .pill { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+  .p-applied { background: #d6f0de; color: #14532d; }
+  .p-pending { background: #fff0c2; color: #713f12; }
+  .p-blocked { background: #ffe0e0; color: #7f1d1d; }
+  .p-missing { background: #e5e7eb; color: #374151; }
+  pre { background: #111827; color: #e5e7eb; padding: 10px 12px; border-radius: 8px; overflow-x: auto; font-size: 13px; white-space: pre-wrap; }
+  button { font-size: 14px; padding: 7px 14px; border-radius: 8px; border: 1px solid #9ca3af; background: #fff; cursor: pointer; }
+  button:disabled { opacity: .5; cursor: default; }
+  .meta { font-size: 12px; color: #6b7280; margin-top: 8px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>デプロイボード</h1>
+  <div class="sub" id="sub">リポジトリのファイルと、データベースが「適用済み」と答えた内容を比べます</div>
+  <button id="refresh">更新</button>
+  <div id="banner"></div>
+  <table>
+    <thead><tr><th>マイグレーションファイル</th><th>状態</th></tr></thead>
+    <tbody id="rows"><tr><td colspan="2">「更新」を押してください。</td></tr></tbody>
+  </table>
+  <div id="detail"></div>
+  <div class="meta" id="meta"></div>
+</main>
+<script src="config.js"></script>
+<script src="board.js"></script>
+</body>
+</html>

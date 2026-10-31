@@ -15,7 +15,7 @@ schemas = ["public", "graphql_public"]
 extra_search_path = ["public", "extensions"]
 # The maximum number of rows returns from a view, table, or stored procedure. Limits payload size
 # for accidental or malicious requests.
-max_rows = 7
+max_rows = 7   # experiment: this setting is NOT deployed by the GitHub integration (the dashboard still shows 1000)
 # Controls whether new tables, views, sequences and functions created in the `public` schema by
 # `postgres` are reachable through the Data API roles (`anon`, `authenticated`, `service_role`)
 # without explicit GRANTs, matching the cloud default. Set to `false` to require explicit GRANTs
@@ -108,7 +108,7 @@ port = 54324
 # Uncomment to expose additional ports for testing user applications that send emails.
 # smtp_port = 54325
 # pop3_port = 54326
-# admin_email = "admin@email.com"
+# admin_email = "admin@example.com"
 # sender_name = "Admin"
 
 [storage]
@@ -239,7 +239,7 @@ otp_expiry = 3600
 # port = 587
 # user = "apikey"
 # pass = "env(SENDGRID_API_KEY)"
-# admin_email = "admin@email.com"
+# admin_email = "admin@example.com"
 # sender_name = "Admin"
 
 # Uncomment to customize email template
