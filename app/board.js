@@ -7,9 +7,9 @@ const cfg = window.BOARD_CONFIG;
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
-async function getJson(url, opts) {
+async function getJson(url, label, opts) {
   const res = await fetch(url, opts);
-  if (!res.ok) throw new Error(`${new URL(url).host} answered ${res.status}`);
+  if (!res.ok) throw new Error(`${label} answered ${res.status}`);
   return res.json();
 }
 
@@ -21,9 +21,9 @@ async function refresh() {
   try {
     const gh = "https://api.github.com/repos/" + cfg.repo;
     const [files, checks, applied] = await Promise.all([
-      getJson(`${gh}/contents/supabase/migrations?ref=${cfg.branch}`),
-      getJson(`${gh}/commits/${cfg.branch}/check-runs`),
-      getJson(cfg.functionUrl, { headers: { apikey: cfg.publishableKey } }),
+      getJson(`${gh}/contents/supabase/migrations?ref=${cfg.branch}`, "GitHub (migration files)"),
+      getJson(`${gh}/commits/${cfg.branch}/check-runs`, "GitHub (check results)"),
+      getJson(cfg.functionUrl, "The Edge Function", { headers: { apikey: cfg.publishableKey } }),
     ]);
     render(files, checks, applied.applied);
     $("meta").textContent = "Updated " + new Date().toLocaleTimeString() +
@@ -65,8 +65,8 @@ function render(files, checks, applied) {
   const waiting = repoFiles.filter((f) => !appliedVersions.has(f.version)).length;
   if (failed) {
     $("banner").innerHTML = `<div class="banner bad"><b>The last deploy on ${esc(cfg.branch)} failed.</b> ` +
-      `${waiting} file(s) are not applied. The database itself is unchanged by the failed file.</div>`;
-    $("detail").innerHTML = `<h3>What GitHub says</h3><pre>${esc((run.output && run.output.summary) || "(no message)")}</pre>`;
+      `${waiting} file(s) are not recorded as applied in the database.</div>`;
+    $("detail").innerHTML = `<h3>What GitHub says</h3><pre>${esc(((run.output && run.output.summary) || "(no message)").replace(/^```\n?|\n?```\s*$/g, ""))}</pre>`;
   } else if (running) {
     $("banner").innerHTML = `<div class="banner warn">A deploy is running. Press Refresh in a few seconds.</div>`;
   } else if (waiting === 0) {
